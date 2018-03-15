@@ -17,19 +17,22 @@ var seckill = {
         // 获取秒杀地址，控制显示逻辑，执行秒杀
         node.hide()
             .html('<button class="btn btn-primary btn-lg" id="killBtn">开始秒杀</button>');  // 给一个按钮
+
         $.post(seckill.URL.exposer(seckillId),{},function (result) {
             // 在回调函数中，执行交互流程
             if(result && result['success']) {
+                console.log('执行成功..');
                 var exposer = result['data'];
+                // 判断是否开启秒杀
                 if(exposer['exposed']) {
                     // 开启秒杀
-
                     // 获取秒杀地址
                     var md5 = exposer['md5'];
                     var killUrl = seckill.URL.execution(seckillId,md5);
                     console.log('killUrl : ' + killUrl);
                     // 绑定一次点击事件
                     $('#killBtn').one('click',function () {
+                        console.log('点击成功');
                         // 绑定秒杀请求
                         // 1. 先禁用按钮
                         $(this).addClass('disabled');
@@ -40,10 +43,11 @@ var seckill = {
                                 var state = killResult['state'];
                                 var stateInfo = killResult['stateInfo'];
                                 // 3. 显示秒杀结果
-                                node.html('<span class="label label-sucess">'+stateInfo+'</span>');
+                                node.html('<span class="label label-success">'+stateInfo+'</span>');
                             }
                         });
                     });
+                    // 绑定事情完成后，显示node
                     node.show();
                 } else {
                     // 未开启秒杀
@@ -51,7 +55,7 @@ var seckill = {
                     var start = exposer['start'];
                     var end = exposer['end'];
                     // 重新计算计时逻辑
-                    seckill.countdown(seckillId,now,start,end);
+                    seckill.mYcountdown(seckillId,now,start,end);
 
 
                 }
@@ -68,7 +72,7 @@ var seckill = {
             return false;
         }
     },
-    countdown : function(seckillid,nowTime,startTime,endTime) {
+    mYcountdown : function(seckillid,nowTime,startTime,endTime) {
         var seckillBox = $('#seckill-box');
         // 时间判断
         if(nowTime > endTime) {
@@ -130,7 +134,7 @@ var seckill = {
                 if (result && result['success']) {
                     var nowTime = result['data'];
                     // 时间判断,计时交互
-                    seckill.countdown(seckillId,nowTime,startTime,endTime);
+                    seckill.mYcountdown(seckillId,nowTime,startTime,endTime);
                 } else {
                     console.log('result : '+ result);
                 }

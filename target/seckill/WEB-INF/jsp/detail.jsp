@@ -63,7 +63,10 @@
 <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- JQeury countdown 倒计时插件-->
 <%--<script src="http://cdn.bootcss.com/jquery-countdown/2.1.0/jquery.countdown.min.js"></script>--%>
-<script src="http://cdn.bootcss.com/jquery-countdown/2.0.2/jquery.countdown.min.js"></script>
+<%--
+<script src="http://cdn.bootcss.com/jquery.countdown/2.0.2/jquery.countdown.min.js"></script>
+--%>
+<script src="https://cdn.bootcss.com/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
 
 <!--开始编写交互逻辑
     这里有个坑，不能直接写<script !src="" />这样会导致下面的资源不加载了
